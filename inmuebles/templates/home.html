@@ -1,0 +1,86 @@
+{% extends 'base/base.html' %} {% block content %}
+
+
+<section>
+    <div class="container">
+        <hr>
+        <h1>Aqui va el HERO</h1>
+        
+        
+        
+        <hr>
+    </div>
+</section>
+
+<!-- Slide de casas -->
+<section>
+    <div class="container">
+        <hr>
+        <h1>Ventajas</h1>
+        <hr>
+    </div>
+</section>
+
+
+<!-- Slide de casas -->
+<section>
+
+    <div class="container">
+        <hr>
+        <h1>Slide de casas</h1>
+        <ul>
+        {% for i in casas %}
+        <li><a href="{% url 'casa_detalles' i.id %}"> {{i.id}}</a></li>
+            
+        {% endfor %}
+        </ul>
+        <hr>
+    </div>
+</section>
+
+<!-- Slide de Departamentos -->
+<section>
+    <div class="container">
+        <hr>
+        <h1>Slide de departamentos</h1>
+        {% for i in departamentos %}
+        <ul>
+        <li>{{i.id}}</li>
+        </ul>
+        {% endfor %}
+        <hr>
+    </div>
+</section>
+
+<!-- Slide de Comercios -->
+<section>
+    <div class="container">
+        <hr>
+        <h1>Slide de comercios</h1>
+        <ul>
+        {% for i in comercios %}
+        <li>{{i.id}}</li>
+        {% endfor %}
+        </ul>
+        <hr>
+    </div>
+</section>
+
+<!-- Slide de Terrenos -->
+<section>
+    <div class="container">
+        <hr>
+        <h1>Slide de Terrenos</h1>
+        <ul>
+        {% for i in terrenos %}
+        <li>{{i.id}}</li>
+        {% endfor %}
+        </ul>
+        <hr>
+        
+    </div>
+</section>
+
+
+
+{% endblock content %}
