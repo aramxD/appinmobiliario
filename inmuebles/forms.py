@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from .models import *
-from equipo.models import *
+from equipo.models import Citas
 
 
 
@@ -22,7 +22,7 @@ class InmuebleForms(ModelForm):
         model = Inmueble
         fields = '__all__'
         exclude = ('created',)
-        #widgets = {'vendedor': forms.HiddenInput()}
+        widgets = {'inmueble': forms.HiddenInput()}
         labels = {
             "precio": "Precio de inmueble (En MXN) ",
             "amenidades": "El inmueble cuenta con amenidades? ",

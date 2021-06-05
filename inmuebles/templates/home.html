@@ -30,7 +30,7 @@
         <h1>Slide de casas</h1>
         <ul>
         {% for i in casas %}
-        <li><a href="{% url 'casa_detalles' i.id %}"> {{i.id}}</a></li>
+        <li><a href="{% url 'detalles_inmuebles' i.inmueble  i.id %}">{{i.inmueble}} - {{i.tipo_contrato}} - ID: {{i.id}}</a></li>
             
         {% endfor %}
         </ul>
@@ -45,7 +45,7 @@
         <h1>Slide de departamentos</h1>
         {% for i in departamentos %}
         <ul>
-        <li>{{i.id}}</li>
+        <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %}">{{i.inmueble}} - {{i.tipo_contrato}} - ID: {{i.id}}</a></li>
         </ul>
         {% endfor %}
         <hr>
@@ -59,7 +59,7 @@
         <h1>Slide de comercios</h1>
         <ul>
         {% for i in comercios %}
-        <li>{{i.id}}</li>
+        <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %}">{{i.inmueble}} - {{i.tipo_contrato}} - ID: {{i.id}}</a></li>
         {% endfor %}
         </ul>
         <hr>
@@ -73,7 +73,7 @@
         <h1>Slide de Terrenos</h1>
         <ul>
         {% for i in terrenos %}
-        <li>{{i.id}}</li>
+        <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %}">{{i.inmueble}} -  {{i.id}}</a></li>
         {% endfor %}
         </ul>
         <hr>

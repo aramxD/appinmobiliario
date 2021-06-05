@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 # Create your models here.
@@ -11,6 +12,8 @@ class Asesor(models.Model):
     telefono = models.CharField(max_length=12)
     email = models.EmailField()
     foto = models.ImageField(verbose_name="perfil", upload_to="images/user", blank=True)
+    fecha_ingreso = models.DateTimeField(auto_now_add=True, null=True, blank=False)
+
 
     def __str__(self):
         user = self.nombre + " " + self.apeido

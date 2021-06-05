@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %} {% block content%}
+<br>
+<div class="container" style="width: 800px;">
+    <div style="font-size: large;">
+    {% for i in paginas %}
+        <h3> {{i.titulo}} - {{i.creado}}</h3>
+    {% endfor %}
+    
+</div>
+
+
+
+
+
+
+{% endblock %}

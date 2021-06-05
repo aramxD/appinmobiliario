@@ -17,12 +17,9 @@
                     <a href="#">HOME</a>
                 </li>
                 <li>
-                    <a href="#">location <i class="icon ion-md-arrow-dropdown"></i> </a>
+                    <a href="#">Listados <i class="icon ion-md-arrow-dropdown"></i> </a>
                     <ul class="sub-menu">
                         <li>
-        
-        
-        
                             <a href="{% url 'listado' 'Casa' %}">Casas</a>
                         </li>
                         <li>
@@ -36,6 +33,26 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#">Agregar <i class="icon ion-md-arrow-dropdown"></i> </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="{% url 'agregar_inmueble' 'Casa' %}">+ Casas</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'agregar_inmueble' 'Departamento' %}">+ Departamentos</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'agregar_inmueble' 'Terreno' %}">+ Terrenos</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'agregar_inmueble' 'Comercio' %}">+ Comercios</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                            <a href="{% url 'listado_inmuebles' %}">Dashboard</a>
+                        </li>
                 <li>
                     <a href="#">Dropdown
                         <i class="icon ion-md-arrow-dropdown"></i> 

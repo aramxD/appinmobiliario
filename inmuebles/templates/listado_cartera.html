@@ -1,0 +1,226 @@
+{% extends 'base/base.html' %} {% block content %}
+<style>
+    table,
+    td,
+    th {
+        border-bottom: 1px solid black;
+        text-align: center;
+        font-size: small;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    th {
+        background-color: #4E66F8;
+        height: 3em;
+    }
+    
+    td {
+        height: 2em;
+    }
+    
+    btn-sml {
+        height: 2.5vh;
+    }
+</style>
+<br><br><br>
+<div class="container" style="max-width: 900px">
+
+
+
+    <h1> Lista de Casas asdfsadf</h1> adsfadsf
+    <p>Este es el listado de todas las casas, incluye las que estan vendidas.</p>
+    <div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Colonia</th>
+                <th>Ciudad</th>
+
+                <th>Contrato</th>
+                <th>Inicio?</th>
+                <th>Asesor</th>
+                <th>Editar</th>
+
+            </tr>
+            {% for i in casas %}
+            <tr {% if i.termino %}style="background-color: #727272; color:beige" {% else %}{% endif %}>
+                <td>{{i.id}}</td>
+                <td>{{i.colonia|upper|truncatechars_html:10}}</td>
+                <td>{{i.ciudad|upper}}</td>
+                <td>{{i.tipo_contrato|upper}}</td>
+
+                {% if i.featured %}
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                    </svg> </td> {% else %}
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg></td> {% endif %}
+
+                <td>{{i.vendedor.apodo}}</td>
+                <td style="background-color: #ffffff;">
+                    <button type="button" style="padding: 0; width: 100%; border-color: #ffffff00;" class=" btn-warning btn-sml">
+                            <a href="{%url 'editar_inmueble' i.id %}" style="text-decoration: none; color: #000000 ">Editar</a></button>
+                </td>
+
+
+            </tr>
+            {% endfor %}
+
+
+        </table>
+    </div>
+</div>
+
+<hr style="height:80pt; visibility:hidden;">
+<div class="container" style="max-width: 900px">
+    <h1> Lista de Departamentos </h1>
+    <p>Este es el listado de todas las casas, incluye las que estan vendidas.</p>
+    <div style="">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Colonia</th>
+                <th>Ciudad</th>
+                <th>Contrato</th>
+                <th>Inicio?</th>
+                <th>Asesor</th>
+                <th>Editar</th>
+
+            </tr>
+            {% for i in departamentos %}
+            <tr {% if i.termino %} style="background-color: #727272; color:beige" {% else %}{% endif %}>
+                <td>{{i.id}}</td>
+                <td>{{i.colonia|upper|truncatechars_html:10}}</td>
+                <td>{{i.ciudad|upper}}</td>
+                <td>{{i.tipo_contrato|upper}}</td>
+
+                {% if i.featured %}
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                    </svg> </td> {% else %}
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg></td> {% endif %}
+
+                <td>{{i.vendedor.apodo}}</td>
+                <td style="background-color: #ffffff;">
+                    <button type="button" style="padding: 0; width: 100%; border-color: #ffffff00;" class=" btn-warning btn-sml">
+                            <a href="{%url 'editar_inmueble' i.id %}" style="text-decoration: none; color: #000000 ">Editar</a></button>
+                </td>
+
+
+            </tr>
+            {% endfor %}
+
+
+        </table>
+    </div>
+</div>
+
+<hr style="height:80pt; visibility:hidden;">
+<div class="container" style="max-width: 900px">
+    <h1> Lista de Comercios </h1>
+    <p>Este es el listado de todas las casas, incluye las que estan vendidas.</p>
+    <div style="">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Colonia</th>
+                <th>Ciudad</th>
+                <th>Contrato</th>
+                <th>Inicio?</th>
+                <th>Asesor</th>
+                <th>Editar</th>
+
+            </tr>
+            {% for i in comercios %}
+            <tr {% if i.termino %} style="background-color: #727272; color:beige" {% else %}{% endif %}>
+                <td>{{i.id}}</td>
+                <td>{{i.colonia|upper|truncatechars_html:10}}</td>
+                <td>{{i.ciudad|upper}}</td>
+                <td>{{i.tipo_contrato|upper}}</td>
+
+                {% if i.featured %}
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                    </svg> </td> {% else %}
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg></td> {% endif %}
+
+                <td>{{i.vendedor.apodo}}</td>
+                <td style="background-color: #ffffff;">
+                    <button type="button" style="padding: 0; width: 100%; border-color: #ffffff00;" class=" btn-warning btn-sml">
+                            <a href="{%url 'editar_inmueble' i.id %}" style="text-decoration: none; color: #000000 ">Editar</a></button>
+                </td>
+
+
+            </tr>
+            {% endfor %}
+
+
+        </table>
+    </div>
+</div>
+
+
+<hr style="height:80pt; visibility:hidden;">
+<div class="container" style="max-width: 900px">
+    <h1> Lista de Terrenos </h1>
+    <p>Este es el listado de todas las casas, incluye las que estan vendidas.</p>
+    <div style="">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Colonia</th>
+                <th>Ciudad</th>
+                <th>Contrato</th>
+                <th>Inicio?</th>
+                <th>Asesor</th>
+                <th>Editar</th>
+
+            </tr>
+            {% for i in terrenos %}
+            <tr {% if i.termino %} style="background-color: #727272; color:beige" {% else %}{% endif %}>
+                <td>{{i.id}}</td>
+                <td>{{i.colonia|upper|truncatechars_html:10}}</td>
+                <td>{{i.ciudad|upper}}</td>
+                <td>{{i.tipo_contrato|upper}}</td>
+
+                {% if i.featured %}
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                    </svg> </td> {% else %}
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg></td> {% endif %}
+
+                <td>{{i.vendedor.apodo}}</td>
+                <td style="background-color: #ffffff;">
+                    <button type="button" style="padding: 0; width: 100%; border-color: #ffffff00;" class=" btn-warning btn-sml">
+                            <a href="{%url 'editar_inmueble' i.id %}" style="text-decoration: none; color: #000000 ">Editar</a></button>
+                </td>
+
+
+            </tr>
+            {% endfor %}
+
+
+        </table>
+    </div>
+</div><br>
+
+{% endblock %}

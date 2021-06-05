@@ -9,7 +9,7 @@ class InmuebleAdmin(admin.ModelAdmin):
 
 
 class InmuebleImagenAdmin(admin.ModelAdmin):
-    list_display = ('casa', 'id') #visualizar columnas
+    list_display = ('inmueble', 'id') #visualizar columnas
 
 
 

@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %} {% block content %}
+
+
+<div class="container">
+    <section>
+        <h1>Detalles de {{detalles.inmueble}}</h1>
+        {{nota}} <br> {{ detalles.id}}<br> {{ detalles.precio|floatformat:2}}<br> {{ detalles.colonia}}<br> {% if detalles.imagen %}
+        <img width="200px" height='auto' src="{{detalles.imagen.url}}"> {% endif %}
+    </section>
+    <section>
+        {% for i in fotos_detalles %} {% if fotos_detalles %}
+        <img width="200px" height='auto' src="{{i.imagen.url}}"> {% endif %} {% endfor %}
+
+    </section>
+
+    <section>
+        <h2>Asesor</h2>
+        {{detalles.vendedor.nombre}} {{detalles.vendedor.apeido}}
+
+    </section>
+
+
+    <section>
+        <h2>Formulario de Cita</h2>
+        <form method="POST">
+            {% csrf_token %} {{nueva_cita}}
+            <button type="submit"><span class="glyphicon glyphicon-user"></span> Enviar </button>
+        </form>
+    </section>
+    {% endblock content %}
