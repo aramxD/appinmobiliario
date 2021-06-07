@@ -14,7 +14,7 @@
 
             <ul class="nav-list">
                 <li>
-                    <a href="#">HOME</a>
+                    <a href="{% url 'home'  %}">HOME</a>
                 </li>
                 <li>
                     <a href="#">Listados <i class="icon ion-md-arrow-dropdown"></i> </a>
@@ -53,8 +53,8 @@
                 <li>
                     <a href="#">Paginas <i class="icon ion-md-arrow-dropdown"></i> </a>
                     <ul class="sub-menu">
-                    {% if paginas %}
-                    {%for i in paginas %}
+                    {% if pagina_publicada %}
+                    {%for i in pagina_publicada %}
                         <li>
                             <a href="{% url 'pagina' i.slug %}">{{i.titulo}}</a>
                         </li>
@@ -63,92 +63,9 @@
                     </ul>
                 </li>
                 <li>
-                            <a href="{% url 'listado_inmuebles' %}">Dashboard</a>
+                            <a href="{% url 'dashboard' %}">Dashboard</a>
                         </li>
-                <li>
-                    <a href="#">Dropdown
-                        <i class="icon ion-md-arrow-dropdown"></i> 
-                    </a>
-                    <ul class="sub-menu">
-                        <li>
-                            <a href="#">Location 1</a>
-                        </li>
-                        <li>
-                            <a href="#">More<i class="icon ion-md-arrow-dropdown"></i> </a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="#">Location 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Location 2</a>
-                                </li>
-                                <li>
-                                    <a href="#">Location 3</a>
-                                </li>
-                                <li>
-                                    <a href="#">Location 4</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Location 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Location 3</a>
-                        </li>
-                        <li>
-                            <a href="#">More<i class="icon ion-md-arrow-dropdown"></i> </a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="#">Location 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">More<i class="icon ion-md-arrow-dropdown"></i> </a>
-                                    <ul class="sub-menu">
-                                        <li>
-                                            <a href="#">Location 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Location 2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Location 3</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Location 4</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Location 2</a>
-                                </li>
-                                <li>
-                                    <a href="#">Location 3</a>
-                                </li>
-                                <li>
-                                    <a href="#">Location 4</a>
-                                </li>
-                                <li>
-                                    <a href="#">More<i class="icon ion-md-arrow-dropdown"></i> </a>
-                                    <ul class="sub-menu">
-                                        <li>
-                                            <a href="#">Location 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Location 2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Location 3</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Location 4</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                
                 <li class="move-right btn">
                     <a class="btn-txt" href="#">Asesores</a>
                 </li>

@@ -14,6 +14,10 @@ urlpatterns = [
 
     #Listado tipo dashboard
     path('listado_inmuebles', listado_inmuebles, name='listado_inmuebles'),
+    path('agregar/<inmueble_id>/foto', agregar_fotos, name='agregar_fotos'),
+
+    path('dashboard', dashboard, name='dashboard'),
+
     
 
     ]   

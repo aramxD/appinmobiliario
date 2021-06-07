@@ -35,3 +35,4 @@ class FotosInmuebleForms(ModelForm):
     class Meta:
         model = InmuebleImagen
         fields = '__all__'
+        widgets = {'inmueble': forms.HiddenInput()}

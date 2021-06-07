@@ -9,6 +9,7 @@ class Pagina(models.Model):
     imagen = models.ImageField(verbose_name="Imagen", upload_to="images/paginas")
     contenido = RichTextField()
     creado = models.DateTimeField(auto_now_add=True)
+    publicar = models.BooleanField(default=True)
 
 
     def __str__(self):

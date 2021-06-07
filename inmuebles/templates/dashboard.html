@@ -1,0 +1,103 @@
+{% extends 'base/base.html' %} {% block content %}
+
+
+<div class="container" style="width: 750px;">
+    <div class="card">
+        <h2>
+            <a href="#"> <span class="material-icons">
+            event
+            </span> Resumen CITAS</a>
+        </h2>
+        <p>
+            Resumen de CITAS <br> Citas enviadas = {{citas.count}} <br>
+            <ul>
+                <li>Agregar</li>
+                <li>Editar</li>
+                <li>Eliminar</li>
+            </ul>
+        </p>
+    </div>
+    <hr>
+    <div class="card">
+        <h2>
+            <a href="#"> <span class="material-icons">
+                other_houses
+                </span> Casas </a>
+        </h2>
+        <p>
+            Resumen de Casas <br> Casas registradas = {{casas.count}}<br>
+            <ul>
+                <li>Agregar</li>
+                <li>Editar</li>
+                <li>Eliminar</li>
+            </ul>
+        </p>
+    </div>
+    <hr>
+    <div class="card">
+        <h2>
+            <a href="#"> <span class="material-icons">
+            apartment
+            </span> Departamento </a>
+        </h2>
+        <p>
+            Resumen de Departamento <br> Departamento registradas = {{departamentos.count}}<br>
+            <ul>
+                <li>Agregar</li>
+                <li>Editar</li>
+                <li>Eliminar</li>
+            </ul>
+        </p>
+    </div>
+    <hr>
+    <div class="card">
+        <h2>
+            <a href="#"> <span class="material-icons">
+            nature_people
+            </span> Terrenos </a>
+        </h2>
+        <p>
+            Resumen de Terrenos <br> Terreno registradas = {{terrenos.count}}<br>
+            <ul>
+                <li>Agregar</li>
+                <li>Editar</li>
+                <li>Eliminar</li>
+            </ul>
+        </p>
+    </div>
+    <hr>
+    <div class="card">
+        <h2>
+            <a href="#"> <span class="material-icons">
+            storefront
+            </span> Comercio </a>
+        </h2>
+        <p>
+            Resumen de Comercio <br> Comercio registradas = {{comercios.count}}<br>
+            <ul>
+                <li>Agregar</li>
+                <li>Editar</li>
+                <li>Eliminar</li>
+            </ul>
+        </p>
+    </div>
+    <div class="card">
+        <h2>
+            <a href="#"> <span class="material-icons">
+            dashboard
+            </span> Paginas </a>
+        </h2>
+        <p>
+            Resumen de Paginas <br> Paginas registradas = {{paginas.count}}<br>
+            <ul>
+                <li>Agregar</li>
+                <li>Editar</li>
+                <li>Eliminar</li>
+            </ul>
+        </p>
+    </div>
+</div>
+
+
+
+<br> {% endblock content %}

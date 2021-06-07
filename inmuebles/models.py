@@ -60,6 +60,6 @@ class Inmueble(models.Model):
 
 
 class InmuebleImagen(models.Model):
-    inmueble = models.ForeignKey(Inmueble, on_delete=models.CASCADE)
+    inmueble = models.ForeignKey(Inmueble, on_delete=models.CASCADE, blank=True, null=True)
     imagen = models.ImageField(verbose_name="Imagen", upload_to="images/inmuebles")
     alt = models.CharField(max_length=40, blank=True)        
