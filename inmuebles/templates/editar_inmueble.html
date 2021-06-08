@@ -6,7 +6,7 @@
 {% block content %}
 
 {{error}}
-        <a href="{% url 'agregar_fotos'  inmueble.id %}">Agregar Foto</a>
+        
 
 <form method="POST" action="{% url 'eliminar_inmueble' inmueble.id %}">{% csrf_token %}
         <input type="submit" class="btn btn-danger" style="float: right;" value="Eliminar">
@@ -16,14 +16,25 @@
 
 
 <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-    {{form.media}}
-    {{form.as_p}}
+        {{form.media}}
+        {{form.as_p}}
         <input type="submit" class="btn btn-warning" value="Enviar">
 
 </form>
 
 <hr>
+<a href="{% url 'agregar_fotos'  inmueble.id %}" class="btn">Agregar Foto</a><br>
+{% for i in fotos_detalles %}
+        {% if fotos_detalles %}
+        <img width="200px" height='auto' src="{{i.imagen.url}} "> 
+
+        <form method="POST" action="{% url 'eliminar_foto'  i.id %}">{% csrf_token %}
+        <input type="submit" class=""  value="Eliminar">
+        </form>
+        <a href="{% url 'editar_fotos'  i.id %}">Editar</a>
+
+        {% endif %}
+{% endfor %}
 
 
-
-    {% endblock content %}
+{% endblock content %}

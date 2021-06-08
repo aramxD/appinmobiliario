@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
 from paginas.models import *
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -90,6 +91,7 @@ def detalles_inmuebles(request, tipo_inmueble, inmueble_id):
 
 
 #USER ONLY
+@login_required
 def agregar_inmueble(request, tipo_inmueble):
     pagina_publicada = Pagina.objects.filter(publicar=True)
     if request.method == 'POST':
@@ -111,12 +113,13 @@ def agregar_inmueble(request, tipo_inmueble):
 
 
 #USER ONLY
+@login_required
 def editar_inmueble(request, inmueble_id):
     pagina_publicada = Pagina.objects.filter(publicar=True)
     inmueble_detalles = get_object_or_404(Inmueble, pk=inmueble_id)
     queryfotos = InmuebleImagen.objects.all()
     fotos_detalles = queryfotos.filter(inmueble=inmueble_detalles)
-
+    tipo_inmueble = inmueble_detalles.inmueble
     
     if request.method == 'GET':
         form = InmuebleForms(instance = inmueble_detalles)
@@ -126,8 +129,6 @@ def editar_inmueble(request, inmueble_id):
             'fotos_detalles':fotos_detalles,
             'inmueble' : inmueble_detalles,
             'form' : form,
-            
-            
         } 
         return render(request, 'editar_inmueble.html', context)
     else:
@@ -135,10 +136,7 @@ def editar_inmueble(request, inmueble_id):
             form = InmuebleForms(request.POST, request.FILES, instance=inmueble_detalles)
             form.save()
             
-            return redirect("listado_inmuebles")
-
-        
-            
+            return redirect("listado_asesor", tipo_inmueble)
         except ValueError:
             context = {
                 'pagina_publicada':pagina_publicada,
@@ -152,6 +150,18 @@ def editar_inmueble(request, inmueble_id):
             return render(request, 'editar_inmueble.html', context)
 
 
+#USER ONLY
+@login_required
+def eliminar_inmueble(request, inmueble_id):
+    inmueble_detalles = get_object_or_404(Inmueble, pk=inmueble_id)
+    tipo_inmueble = inmueble_detalles.inmueble
+    if request.method == 'POST':
+        inmueble_detalles.delete()
+        return redirect("listado_asesor", tipo_inmueble) 
+
+
+#FOTOS EXTRAS
+@login_required
 def agregar_fotos(request, inmueble_id):
     pagina_publicada = Pagina.objects.filter(publicar=True)
     inmueble_detalles = get_object_or_404(Inmueble, pk=inmueble_id)
@@ -180,33 +190,53 @@ def agregar_fotos(request, inmueble_id):
             }
         return render (request, 'agregar_foto.html', context)
 
-#USER ONLY
-def eliminar_inmueble(request, inmueble_id):
-    inmueble_detalles = get_object_or_404(Inmueble, pk=inmueble_id)
-    if request.method == 'POST':
-        inmueble_detalles.delete()
-        return redirect('home') 
 
-
-
-def listado_inmuebles(request):
+@login_required
+def editar_fotos(request, foto_id):
     pagina_publicada = Pagina.objects.filter(publicar=True)
-    inmueble = Inmueble.objects.all()
-    casas = inmueble.filter(inmueble="Casa")
-    departamentos = inmueble.filter(inmueble="Departamento")
-    comercios = inmueble.filter(inmueble="Comercio")
-    terrenos = inmueble.filter(inmueble="Terreno")
+    foto_detalle = get_object_or_404(InmuebleImagen, pk=foto_id)
     
-    context = {
-        'pagina_publicada':pagina_publicada,
-        'casas' : casas,
-        'departamentos' : departamentos,
-        'comercios' : comercios,
-        'terrenos' : terrenos,
-    }
-    return render(request, 'listado_cartera.html', context)
+    inmueble_id = foto_detalle.inmueble.id
+    if request.method == 'GET':
+        form = FotosInmuebleForms(instance = foto_detalle)
+        
+        context = {
+            'pagina_publicada':pagina_publicada,
+            'foto_detalle':foto_detalle,
+            'form' : form,
+        } 
+        return render(request, 'editar_foto.html', context)
+    else:
+        try:
+            form = FotosInmuebleForms(request.POST, request.FILES, instance=foto_detalle)
+            form.save()
+            
+            return redirect('editar_inmueble', inmueble_id)
+        except ValueError:
+            context = {
+                'pagina_publicada':pagina_publicada,
+                'fotos_detalles':foto_detalle,
+                
+                'form' : form,
+                'error' : 'Reviza la informacion, algo esta mal...',
+                
+                
+            }
+            return render(request, 'editar_foto.html', context)
 
 
+#USER ONLY
+@login_required
+def eliminar_foto(request, foto_id):
+    foto_inmueble = get_object_or_404(InmuebleImagen, pk=foto_id)
+    inmueble_id = foto_inmueble.inmueble.id
+    if request.method == 'POST':
+        foto_inmueble.delete()
+        return redirect("editar_inmueble", inmueble_id) 
+
+
+#DASHBOARD
+@login_required
 def dashboard(request):
     citas = Citas.objects.all()
     paginas = Pagina.objects.all()
@@ -228,3 +258,26 @@ def dashboard(request):
         'terrenos' : terrenos,
     }
     return render(request, 'dashboard.html', context)
+
+
+@login_required
+def listado_asesor(request, tipo_inmueble):
+    paginas = Pagina.objects.all()
+    pagina_publicada = paginas.filter(publicar=True)
+    if request.method == 'GET':
+        
+        inmuebles = Inmueble.objects.filter(inmueble=tipo_inmueble)
+        context = {
+        'paginas':paginas,
+        'tipo_inmueble':tipo_inmueble,
+        'pagina_publicada':pagina_publicada,
+        'inmuebles':inmuebles,
+        
+        }
+        return render (request, 'listado_cartera.html', context)
+    else:
+        return redirect("dashboard")
+
+
+
+

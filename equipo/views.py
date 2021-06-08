@@ -6,12 +6,14 @@ from django.contrib.auth.models import User
 from inmuebles.views import *
 from .models import *
 from .forms import *
+from django.contrib.auth.decorators import login_required
 #from django.shortcuts import HttpResponseRedirect
 
 # Create your views here.
 
 
 #USER ONLY
+@login_required
 def registro(request):
     form = UserCreationForm()
     if request.method == 'POST':
@@ -57,6 +59,7 @@ def registro(request):
 
 
 #USER ONLY
+@login_required
 def logoutuser(request):
     if request.method == 'POST':
         logout(request)

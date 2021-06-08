@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
+from django.contrib.auth.decorators import login_required
 
 #USER ONLY
+@login_required
 def listado_paginas(request):
     paginas = Pagina.objects.all()
     context= {
@@ -24,6 +26,7 @@ def pagina(request, slug):
 
 
 #USER ONLY
+@login_required
 def nueva_pagina(request):
     if request.method == 'POST':
         alta_pagina = nuevaPagina(request.POST, request.FILES)

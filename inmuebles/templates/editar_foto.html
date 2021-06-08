@@ -1,0 +1,27 @@
+
+{% extends 'base/base.html' %} 
+
+
+
+{% block content %}
+
+{{error}}
+        
+
+<img width="200px" height='auto' src="{{foto_detalle.imagen.url}} "> 
+<br><br>
+
+
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        {{form.media}}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-warning" value="Enviar">
+
+</form>
+
+<hr>
+
+
+
+
+{% endblock content %}
