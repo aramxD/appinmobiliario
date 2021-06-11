@@ -1,0 +1,81 @@
+{% extends 'base/base.html' %} {% block content %}
+<style>
+    table,
+    td,
+    th {
+        border-bottom: 1px solid black;
+        text-align: center;
+        font-size: small;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    th {
+        background-color: #4E66F8;
+        height: 3em;
+    }
+    
+    td {
+        height: 2em;
+    }
+    
+    btn-sml {
+        height: 2.5vh;
+    }
+</style>
+<br><br><br>
+<div class="container" style="max-width: 900px">
+    <h1> Lista de Citas</h1> 
+    <p>Este es el listado de todas las citas, incluye las que estan vendidas.</p>
+    <div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Telefono</th>
+
+                <th>Email</th>
+                <th>whattsapp?</th>
+                <th>Fecha Envio</th>
+                <th>Asesor</th>
+                <th>Checked</th>
+                <th>Eliminar</th>
+                
+
+            </tr>
+            {% for i in citas %}
+            <tr {% if i.checked %} style="background-color:gray;" {%endif%}>
+                <td>{{i.id}}</td>
+                <td>{{i.nombre_completo}}</td>
+                <td>{{i.telefono}}</td>
+                <td>{{i.email}}</td>
+
+                <td>{{i.whattsapp}}</td>
+                <td>{{i.creado}}</td>
+                <td>{{i.asesor}}</td>
+                <td >
+                    <form action="{% url 'checked_citas' i.id%}" method="POST">{% csrf_token %}
+                        <input value="Cita Check" type=submit>
+                    </form>    
+                </td>
+                <td >
+                    <form action="{% url 'eliminar_citas' i.id%}" method="POST">{% csrf_token %}
+                        <input value="Eliminar" type=submit>
+                    </form>    
+                </td>
+
+
+            </tr>
+            {% endfor %}
+
+
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock %}

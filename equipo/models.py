@@ -13,6 +13,7 @@ class Asesor(models.Model):
     email = models.EmailField()
     foto = models.ImageField(verbose_name="perfil", upload_to="images/user", blank=True)
     fecha_ingreso = models.DateTimeField(auto_now_add=True, null=True, blank=False)
+    is_admin = models.BooleanField(default=False)
 
 
     def __str__(self):
@@ -25,7 +26,10 @@ class Citas(models.Model):
     telefono = models.CharField(max_length=12)
     email = models.EmailField()
     whattsapp = models.BooleanField(default=False)
+    checked = models.BooleanField(default=False)
+    creado = models.DateTimeField(auto_now_add=True, null=True)
     asesor = models.ForeignKey(Asesor, on_delete=models.CASCADE, blank=True, null=True)
+    
 
     def __str__(self):
         return self.nombre_completo

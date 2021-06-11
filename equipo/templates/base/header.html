@@ -50,8 +50,10 @@
                             <a href="{% url 'dashboard' %}">Dashboard</a>
                         </li>
                 
-                <li class="move-right btn">
-                    <a class="btn-txt" href="#">Asesores</a>
+                <li class="move-right ">
+                    <form method='POST' action="{% url 'logoutuser'%}">{% csrf_token %}
+                    <input type="submit" class="btn btn-danger" style="float: right;" value="Cerrar Sesion">
+                    </form>
                 </li>
 
             </ul>

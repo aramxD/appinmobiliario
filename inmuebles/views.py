@@ -2,17 +2,27 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
 from paginas.models import *
+from equipo.models import *
 from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
+def get_asesor(request):
+    user_asesor = Asesor.objects.filter(user=request.user)
+    
+    if user_asesor.exists():
+        return user_asesor.first()
+    return None
+
+
+
+
 def home(request):
     pagina_publicada = Pagina.objects.filter(publicar=True)
     inmueble = Inmueble.objects.filter(featured=True)
-    casas = inmueble.filter(inmueble="Casa")
-    departamentos = inmueble.filter(inmueble="Departamento")
-    comercios = inmueble.filter(inmueble="Comercio")
-    terrenos = inmueble.filter(inmueble="Terreno")
+    casas = inmueble.filter(inmueble="Casa").order_by('id')
+    departamentos = inmueble.filter(inmueble="Departamento").order_by('id')
+    comercios = inmueble.filter(inmueble="Comercio").order_by('id')
+    terrenos = inmueble.filter(inmueble="Terreno").order_by('id')
 
     context = {
         'pagina_publicada':pagina_publicada,
@@ -28,7 +38,7 @@ def listado(request, tipo_inmueble):
     pagina_publicada = Pagina.objects.filter(publicar=True)
     if request.method == 'GET':
         
-        inmuebles = Inmueble.objects.filter(inmueble=tipo_inmueble)
+        inmuebles = Inmueble.objects.filter(inmueble=tipo_inmueble).order_by('id')
         context = {
         'pagina_publicada':pagina_publicada,
         'inmuebles':inmuebles,
@@ -45,7 +55,7 @@ def detalles_inmuebles(request, tipo_inmueble, inmueble_id):
     
     if detalles.inmueble == tipo_inmueble:
         queryfotos = InmuebleImagen.objects.all()
-        fotos_detalles = queryfotos.filter(inmueble=detalles)
+        fotos_detalles = queryfotos.filter(inmueble=detalles).order_by('id')
 
 
         if request.method == 'POST':
@@ -95,13 +105,15 @@ def detalles_inmuebles(request, tipo_inmueble, inmueble_id):
 def agregar_inmueble(request, tipo_inmueble):
     pagina_publicada = Pagina.objects.filter(publicar=True)
     if request.method == 'POST':
+        asesor = get_asesor(request)
         alta_casa = InmuebleForms(request.POST, request.FILES)
         if alta_casa.is_valid():
             casa = alta_casa.save(commit=False)
+            casa.vendedor = asesor
             casa.inmueble = tipo_inmueble
             casa.save()
             
-            return redirect("home")
+            return redirect("listado_asesor", tipo_inmueble)
             
     else:
 
@@ -241,43 +253,114 @@ def dashboard(request):
     citas = Citas.objects.all()
     paginas = Pagina.objects.all()
     pagina_publicada = paginas.filter(publicar=True)
-    
-    inmueble = Inmueble.objects.all()
-    casas = inmueble.filter(inmueble="Casa")
-    departamentos = inmueble.filter(inmueble="Departamento")
-    comercios = inmueble.filter(inmueble="Comercio")
-    terrenos = inmueble.filter(inmueble="Terreno")
-    
-    context = {
-        'citas':citas,
-        'paginas':paginas,
-        'pagina_publicada':pagina_publicada,
-        'casas' : casas,
-        'departamentos' : departamentos,
-        'comercios' : comercios,
-        'terrenos' : terrenos,
-    }
-    return render(request, 'dashboard.html', context)
+    asesor = get_asesor(request)
+    asesor_is_admin = asesor.is_admin
+    if asesor_is_admin:
+        inmueble = Inmueble.objects.all()
+        casas = inmueble.filter(inmueble="Casa")
+        departamentos = inmueble.filter(inmueble="Departamento")
+        comercios = inmueble.filter(inmueble="Comercio")
+        terrenos = inmueble.filter(inmueble="Terreno")
+        
+        context = {
+            'citas':citas,
+            'paginas':paginas,
+            'pagina_publicada':pagina_publicada,
+            'casas' : casas,
+            'departamentos' : departamentos,
+            'comercios' : comercios,
+            'terrenos' : terrenos,
+        }
+        return render(request, 'dashboard.html', context)
+    else:
+        inmueble = Inmueble.objects.filter(vendedor=asesor)
+        casas = inmueble.filter(inmueble="Casa")
+        departamentos = inmueble.filter(inmueble="Departamento")
+        comercios = inmueble.filter(inmueble="Comercio")
+        terrenos = inmueble.filter(inmueble="Terreno")
+        
+        context = {
+            'citas':citas,
+            'paginas':paginas,
+            'pagina_publicada':pagina_publicada,
+            'casas' : casas,
+            'departamentos' : departamentos,
+            'comercios' : comercios,
+            'terrenos' : terrenos,
+        }
+        return render(request, 'dashboard.html', context)
 
 
 @login_required
 def listado_asesor(request, tipo_inmueble):
     paginas = Pagina.objects.all()
     pagina_publicada = paginas.filter(publicar=True)
+    asesor = get_asesor(request)
+    asesor_is_admin = asesor.is_admin
     if request.method == 'GET':
-        
-        inmuebles = Inmueble.objects.filter(inmueble=tipo_inmueble)
-        context = {
-        'paginas':paginas,
-        'tipo_inmueble':tipo_inmueble,
-        'pagina_publicada':pagina_publicada,
-        'inmuebles':inmuebles,
-        
-        }
-        return render (request, 'listado_cartera.html', context)
+        if asesor_is_admin:
+            inmuebles = Inmueble.objects.filter(inmueble=tipo_inmueble).order_by('id')
+            context = {
+            'paginas':paginas,
+            'tipo_inmueble':tipo_inmueble,
+            'pagina_publicada':pagina_publicada,
+            'inmuebles':inmuebles,
+            }
+            return render (request, 'listado_cartera.html', context)
+        else:
+            inmuebles = Inmueble.objects.filter(inmueble=tipo_inmueble).filter(vendedor=asesor).order_by('id')
+            context = {
+            'paginas':paginas,
+            'tipo_inmueble':tipo_inmueble,
+            'pagina_publicada':pagina_publicada,
+            'inmuebles':inmuebles,
+            }
+            return render (request, 'listado_cartera.html', context)
     else:
         return redirect("dashboard")
 
 
 
+@login_required
+def listado_citas(request):
+    pagina_publicada = Pagina.objects.filter(publicar=True)
+    asesor = get_asesor(request)
+    asesor_is_admin = asesor.is_admin
+    print(asesor_is_admin)
+    if asesor_is_admin:
+        citas = Citas.objects.order_by('id')
+        context = {
+            'citas':citas,
+            'pagina_publicada':pagina_publicada,
+            }
+        return render (request, 'listado_citas.html', context)
+    else:
+        citas = Citas.objects.filter(asesor=asesor).order_by('id')
+        context = {
+            'citas':citas,
+            'pagina_publicada':pagina_publicada,
+            }
+        return render (request, 'listado_citas.html', context)
 
+
+
+@login_required
+def checked_citas(request, cita_id):
+    cita = get_object_or_404(Citas, pk=cita_id)
+    if request.method == 'POST':
+        if cita.checked == False:
+            cita.checked = True
+            cita.save()
+            return redirect("listado_citas")
+        else:
+            cita.checked = False
+            cita.save()
+            return redirect("listado_citas")
+
+
+@login_required
+def eliminar_citas(request, cita_id):
+    cita = get_object_or_404(Citas, pk=cita_id)
+    if request.method == 'POST':
+        cita.delete()
+        return redirect("listado_citas")

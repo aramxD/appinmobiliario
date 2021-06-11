@@ -5,11 +5,11 @@ from .models import *
 
 
 class InmuebleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'inmueble', 'ciudad',  'colonia', 'vendedor', 'precio') #visualizar columnas
+    list_display = ('id', 'inmueble', 'ciudad',  'colonia', 'vendedor', 'precio', 'created') #visualizar columnas
 
 
 class InmuebleImagenAdmin(admin.ModelAdmin):
-    list_display = ('inmueble', 'id') #visualizar columnas
+    list_display = ('inmueble', 'id',) #visualizar columnas
 
 
 

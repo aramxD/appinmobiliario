@@ -73,6 +73,6 @@ def loginuser(request):
             return render(request, 'login.html', {'form': AuthenticationForm() , 'error': 'User or password did not match'})
         else:
             login(request, user)
-            return redirect('home')
+            return redirect('dashboard')
     else:
         return render(request, 'login.html',  {'form': AuthenticationForm()})

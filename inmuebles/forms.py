@@ -10,7 +10,9 @@ class CitasForms(ModelForm):
         model = Citas
         fields = '__all__'
         #exclude = ('asesor',)
-        widgets = {'asesor': forms.HiddenInput()}
+        widgets = {
+            'asesor': forms.HiddenInput(),
+            'checked': forms.HiddenInput()}
         labels = {
             "whattsapp": "Recibir mensaje de Whattsapp?  "
         }
@@ -22,7 +24,9 @@ class InmuebleForms(ModelForm):
         model = Inmueble
         fields = '__all__'
         exclude = ('created',)
-        widgets = {'inmueble': forms.HiddenInput()}
+        widgets = {
+            'inmueble': forms.HiddenInput(),
+            'vendedor': forms.HiddenInput()}
         labels = {
             "precio": "Precio de inmueble (En MXN) ",
             "amenidades": "El inmueble cuenta con amenidades? ",
@@ -35,4 +39,6 @@ class FotosInmuebleForms(ModelForm):
     class Meta:
         model = InmuebleImagen
         fields = '__all__'
-        widgets = {'inmueble': forms.HiddenInput()}
+        
+        widgets = {
+            'inmueble': forms.HiddenInput()}

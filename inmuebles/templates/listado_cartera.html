@@ -29,7 +29,7 @@
 <br><br><br>
 <div class="container" style="max-width: 900px">
     <h1> Lista de {{tipo_inmueble}}s </h1> 
-    <p>Este es el listado de todas las {{tipo_inmueble}}s, incluye las que estan vendidas.</p>
+    <p>Este es el listado de todas las {{tipo_inmueble}}s, incluye las que estan vendidas.</p><a class="btn-outline-warning" href="{% url 'agregar_inmueble' tipo_inmueble %}">+ {{tipo_inmueble}}</a>
     <div>
         <table>
             <tr>

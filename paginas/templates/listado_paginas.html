@@ -1,9 +1,10 @@
 {% extends 'base/base.html' %} {% block content%}
 <br>
-<div class="container" style="width: 800px;">
+<div class="container" style="width: 900px;">
     <div style="font-size: large;">
     {% for i in paginas %}
-        <h3> {{i.titulo}} - {{i.creado}}</h3>
+        <h3>{{i.titulo}} - {{i.creado}} - <a href="{% url 'editar_pagina' i.id %}"> Editar</a></h3> <form method="POST" action="{% url 'eliminar_pagina' i.id%}">{% csrf_token %}         <input type="submit" class="btn btn-warning" value="Eliminar"> </form>
+
     {% endfor %}
     
 </div>

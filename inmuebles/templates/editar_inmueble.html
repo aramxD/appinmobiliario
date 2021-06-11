@@ -7,7 +7,7 @@
 
 {{error}}
         
-
+<img width="200px" height='auto' src="{{inmueble.imagen.url}} "> 
 <form method="POST" action="{% url 'eliminar_inmueble' inmueble.id %}">{% csrf_token %}
         <input type="submit" class="btn btn-danger" style="float: right;" value="Eliminar">
 </form>
