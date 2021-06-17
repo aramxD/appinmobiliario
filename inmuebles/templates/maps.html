@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+{% for i in inmueble %}
+        {{i.inmueble}}--- lat: {{ i.latitud }} ---- lng: {{ i.longitud }} })
+        
+        {% endfor %}
+        
+
+
+<h1>Mapa chingon</h1>
+<div id="map" style=" height: 300px; width: 100%; margin: auto;"></div>
+
+<script>
+function initMap() {
+        var location = { lat: 32.5114388, lng: -116.9924283 };
+        var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: location,
+            disableDefaultUI: true,
+            styles: [{
+                "featureType": "all",
+                "elementType": "labels.text",
+                "stylers": [{ "visibility": "on" }]
+            },
+            {
+                "featureType": "all",
+                "elementType": "labels.icon",
+                "stylers": [{ "visibility": "on" }]
+            }]
+        });
+        //call marker function
+        
+        {% for i in inmueble %}
+        var pname = '{{i.inmueble}}';
+        var plabel = '{{i.inmueble|make_list|first}}'
+        var plink = '{% url 'detalles_inmuebles' i.inmueble  i.id %}'
+        addMarker({ lat: {{ i.latitud }}, lng: {{ i.longitud }} });
+        {% endfor %}
+        
+
+        
+
+
+
+
+        
+        function addMarker(location) {
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                label: plabel,
+            });
+            const contentString =
+                '<div id="content"> <div id="siteNotice"> </div>' + 
+                '<h5 id="firstHeading" class="firstHeading"> <a href="'+plink+'">' +
+                pname + '</a></h5></div>';
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString,
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(map, marker);
+            });
+        }// Add a marker clusterer to manage the markers.
+    new MarkerClusterer(map, markers, {
+    imagePath:
+        "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+    });
+    }
+
+
+
+
+</script>
+<script async defer
+    src=  "https://maps.googleapis.com/maps/api/js?key=AIzaSyDqtFbeadfHG4D1VN7ByGmexwMfjPJZ_ME&callback=initMap" 
+    type="text/javascript"></script>
+
+{% endblock %}

@@ -113,10 +113,9 @@ def editar_asesor(request, user_id):
 
 @login_required
 def eliminar_asesor(request, user_id):
-    
-    user = get_object_or_404(User, pk=user_id)
+    u = User.objects.get(pk=user_id)
     if request.method == 'POST':
-        user.delete()
+        u.delete()
         return redirect("listado_user")
     
 
@@ -132,3 +131,38 @@ def listado_user(request):
         'asesores':asesores,
     }
     return render (request, 'listado_equipo.html', context)
+
+
+@login_required
+def cambio_password(request, user_id):
+    pagina_publicada = Pagina.objects.filter(publicar=True)
+    #user = get_object_or_404(User, pk=user_id)
+    u = User.objects.get(pk=user_id)
+    print(u)
+    if request.method == 'POST':
+        if request.POST['password1'] == request.POST['password2']:
+            try:
+                u.set_password(request.POST['password1'])
+                u.save()
+                return redirect("listado_user")
+            except IntegrityError:
+                error = 'Tu nombre de usuario fue tomado, intenta con otro'
+                context = {
+                    'pagina_publicada':pagina_publicada,
+                    'error':error,
+                }
+                return render(request, 'cambiar_password.html', context)
+        else:        
+            error = 'Las contrasenas no coinciden'
+            context = {
+                    'pagina_publicada':pagina_publicada,
+                    'error':error,
+                }
+            return render(request, 'cambiar_password.html', context)
+    else:
+        context = {
+                    'pagina_publicada':pagina_publicada,
+                }
+        return render(request, 'cambiar_password.html', context)
+
+

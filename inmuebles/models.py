@@ -45,6 +45,7 @@ class Inmueble(models.Model):
     codigo_postal = models.CharField(max_length=6, blank=True )
     latitud = models.DecimalField(max_digits=15, decimal_places=9, verbose_name="Latitud", null=True, blank=True)
     longitud = models.DecimalField(max_digits=15, decimal_places=9, verbose_name="longitud", null=True, blank=True)
+    ubicacion = models.URLField(max_length=200, null=True, blank=True)
     featured = models.BooleanField(default=True, verbose_name="Quieres que aparesca en la pagina principal?")
     
     #transaccion

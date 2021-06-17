@@ -12,8 +12,10 @@ urlpatterns = [
     path('login/', loginuser, name='loginuser'),
     path('logout/', logoutuser, name='logoutuser'),
     path('listado/', listado_user, name='listado_user'),
-    path('editar_asesor/<user_id>', editar_asesor, name='editar_asesor'),
+    path('editar_asesor/<int:user_id>', editar_asesor, name='editar_asesor'),
     path('eliminar_asesor/<user_id>', eliminar_asesor, name='eliminar_asesor'),
+    path('cambio_password/<user_id>', cambio_password, name='cambio_password'),
+
 
     #Reiniciar contrasena
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="reset_password.html"), name='password_reset'),

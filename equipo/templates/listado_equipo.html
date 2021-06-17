@@ -2,7 +2,7 @@
 <div>
     
     <div >
-        <h1>Log In</h1>
+        <h1>Log In</h1> <a href="{% url 'registro'%}">Agregar Miembro</a>
 <br>
 
 
@@ -19,10 +19,11 @@
                 <th>Fecha de ingreso</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
+                <th>Password</th>
             </tr>
             {% for i in asesores %}
             <tr>
-                <td>{{i.id}}</td>
+                <td>{{i.user.id}}</td>
                 <td>{{i.apodo}}</td>
                 <td>{{i.nombre}} {{i.apeido}}</td>
                 <td>{{i.telefono}}</td>
@@ -30,15 +31,16 @@
                 <td>{{i.is_admin}}</td>
                 <td>{{i.fecha_ingreso}}</td>
                 <td >
-                    <a href="{% url 'editar_asesor' i.id%}">Editar</a>
+                    <a href="{% url 'editar_asesor' i.user.id%}">Editar</a>
                 </td>
                 <td >
-                    <form action="{% url 'eliminar_asesor' i.id%}" method="POST">{% csrf_token %}
+                    <form action="{% url 'eliminar_asesor' i.user.id%}" method="POST">{% csrf_token %}
                         <input value="Eliminar" type=submit>
                     </form>    
                 </td>
-
-
+                <td >
+                    <a href="{% url 'cambio_password' i.user.id%}">Cambiar</a>
+                </td>
             </tr>
             {% endfor %}
 

@@ -8,12 +8,9 @@ from django.contrib.auth.decorators import login_required
 
 def get_asesor(request):
     user_asesor = Asesor.objects.filter(user=request.user)
-    
     if user_asesor.exists():
         return user_asesor.first()
     return None
-
-
 
 
 def home(request):
@@ -364,3 +361,15 @@ def eliminar_citas(request, cita_id):
     if request.method == 'POST':
         cita.delete()
         return redirect("listado_citas")
+
+
+def maps(request):
+    pagina_publicada = Pagina.objects.filter(publicar=True)
+    inmueble = Inmueble.objects.filter(latitud__isnull=False)
+    
+    context = {
+        'pagina_publicada':pagina_publicada,
+        'inmueble':inmueble,
+        
+    }
+    return render (request, 'maps.html', context)

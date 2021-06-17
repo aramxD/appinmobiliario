@@ -28,6 +28,6 @@ urlpatterns = [
     path('cita_check/<cita_id>', checked_citas, name='checked_citas'),
     path('cita_eliminar/<cita_id>', eliminar_citas, name='eliminar_citas'),
     
-    
+    path('maps', maps, name='maps'),
 
     ]   

@@ -10,7 +10,7 @@
     <section>
         {% for i in fotos_detalles %} {% if fotos_detalles %}
         <img width="200px" height='auto' src="{{i.imagen.url}}"> {% endif %} {% endfor %}
-
+<a href="{{detalles.ubicacion}}">Ubicacion</a>
     </section>
 
     <section>
@@ -18,6 +18,9 @@
         {{detalles.vendedor.nombre}} {{detalles.vendedor.apeido}}
 
     </section>
+
+
+
 
 
     <section>
