@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from inmuebles.views import *
 from .models import *
 from .forms import *
+from paginas.models import *
 from django.contrib.auth.decorators import login_required
 #from django.shortcuts import HttpResponseRedirect
 
@@ -76,3 +77,58 @@ def loginuser(request):
             return redirect('dashboard')
     else:
         return render(request, 'login.html',  {'form': AuthenticationForm()})
+
+
+@login_required
+def editar_asesor(request, user_id):
+    pagina_publicada = Pagina.objects.filter(publicar=True)
+    user = get_object_or_404(User, pk=user_id)
+    user_asesor = get_object_or_404(Asesor, user=user)
+    print(user_asesor)
+
+    form = PerfilForm(instance = user_asesor)
+    if request.method == 'POST':
+        try: 
+            form = PerfilForm(request.POST, request.FILES, instance=user_asesor)
+            form.save()
+            
+            return redirect('home')
+        except IntegrityError:
+            error = 'Reviza los datos, detecto un error'
+            context = {
+                'pagina_publicada':pagina_publicada,
+                'error':error,
+                'form': form,
+            }
+            return render(request, 'registro.html', context)
+
+    else:
+        form = PerfilForm(instance = user_asesor)
+        context={
+            'pagina_publicada':pagina_publicada,
+            'form': form
+        }
+        return render(request, 'editar_asesor.html', context)
+
+
+@login_required
+def eliminar_asesor(request, user_id):
+    
+    user = get_object_or_404(User, pk=user_id)
+    if request.method == 'POST':
+        user.delete()
+        return redirect("listado_user")
+    
+
+
+@login_required
+def listado_user(request):
+    pagina_publicada = Pagina.objects.filter(publicar=True)
+    asesores = Asesor.objects.order_by("id")
+
+
+    context = {
+        'pagina_publicada': pagina_publicada,
+        'asesores':asesores,
+    }
+    return render (request, 'listado_equipo.html', context)

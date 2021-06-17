@@ -37,9 +37,9 @@ header {
     color: rgb(0, 0, 0);
     font-size: 4rem;
     position: absolute;
-    top: 50%;
+    /* top: 5%; */
     right: 2rem;
-    transform: translateY(-50%);
+    /* transform: translateY(-50%); */
     cursor: pointer;
     z-index: 1500;
     display: none;
@@ -201,13 +201,17 @@ li.move-right {
     .menu-icons {
         display: block;
     }
-    .ion-md-close {
+    img.icon-menu {
+        height: 40px;
+    }
+    i.icon.material-icons.icon-close {
+        font-size: 40px;
         display: none;
     }
-    nav.active .ion-md-close {
+    nav.active i.icon.material-icons.icon-close {
         display: block;
     }
-    nav.active .ion-md-menu {
+    nav.active .icon-menu {
         display: none;
     }
     nav.active .nav-list {

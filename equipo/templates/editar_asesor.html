@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %} {% block content%}
+<br>
+<div >
+    <h1>Estoy para registrarte :D </h1>
+    <h3> Bienvenido :D.... Ponte a trabajar</h3>
+    <h2> {{ error }}</h2>
+
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        {{form.media}}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-warning" value="Enviar">
+
+</form>
+</div>
+
+
+{% endblock %}

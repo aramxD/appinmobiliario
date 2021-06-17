@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %} {% block content %}
+<div>
+    
+    <div >
+        <h1>Log In</h1>
+<br>
+
+
+        <h2>{{ error }}</h2>
+        
+<table>
+            <tr>
+                <th>ID</th>
+                <th>UserName</th>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Admin</th>
+                <th>Fecha de ingreso</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+            {% for i in asesores %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.apodo}}</td>
+                <td>{{i.nombre}} {{i.apeido}}</td>
+                <td>{{i.telefono}}</td>
+                <td>{{i.email}}</td>
+                <td>{{i.is_admin}}</td>
+                <td>{{i.fecha_ingreso}}</td>
+                <td >
+                    <a href="{% url 'editar_asesor' i.id%}">Editar</a>
+                </td>
+                <td >
+                    <form action="{% url 'eliminar_asesor' i.id%}" method="POST">{% csrf_token %}
+                        <input value="Eliminar" type=submit>
+                    </form>    
+                </td>
+
+
+            </tr>
+            {% endfor %}
+
+
+        </table>
+    </div>
+</div>
+<br><br><br>
+
+
+
+{% endblock %}

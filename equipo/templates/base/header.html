@@ -1,15 +1,16 @@
-
+{% load static %}
 
     <div class="js-container">
         <nav>
             <div class="menu-icons">
-                <i class="icon ion-md-menu"></i>
-                <i class="icon ion-md-close"></i>
+                
+                <i class="icon material-icons icon-close">close</i> 
+                <img src="{%static 'icons/menu_black_24dp.svg' %}" class="icon-menu" >
             </div>
 
             <a class="navbar-brand py-1 logo" href="/">
                 <!-- Imagen de LOGO-->
-                <img src="https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/logo.svg" alt="Directory logo"></a>
+                <img src="{%static 'icons/logo_450x200.png' %}" height="50px" alt="Directory logo"></a>
 
 
             <ul class="nav-list">
@@ -17,7 +18,7 @@
                     <a href="{% url 'home'  %}">HOME</a>
                 </li>
                 <li>
-                    <a href="#">Listados <i class="icon ion-md-arrow-dropdown"></i> </a>
+                    <a href="#">Listados   </a>
                     <ul class="sub-menu">
                         <li>
                             <a href="{% url 'listado' 'Casa' %}">Casas</a>
@@ -35,7 +36,7 @@
                 </li>
                 
                 <li>
-                    <a href="#">Paginas <i class="icon ion-md-arrow-dropdown"></i> </a>
+                    <a href="#">Paginas <i class="icon ion-md-arrow-dropdown"></i> </a> 
                     <ul class="sub-menu">
                     {% if pagina_publicada %}
                     {%for i in pagina_publicada %}
@@ -50,12 +51,18 @@
                             <a href="{% url 'dashboard' %}">Dashboard</a>
                         </li>
                 
+                {% if user.is_authenticated %}
+                <li> 
+                    <a class="btn btn-danger" href="{% url 'listado_user'%}">Equipo :D</a>
+                </li>
                 <li class="move-right ">
                     <form method='POST' action="{% url 'logoutuser'%}">{% csrf_token %}
                     <input type="submit" class="btn btn-danger" style="float: right;" value="Cerrar Sesion">
                     </form>
                 </li>
-
+                {% endif %}
+            </ul>
+            <ul>
             </ul>
         </nav>
     </div>
