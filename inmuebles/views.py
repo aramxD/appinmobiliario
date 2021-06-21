@@ -373,3 +373,23 @@ def maps(request):
         
     }
     return render (request, 'maps.html', context)
+
+
+def error_404(request, exception):
+    pagina_publicada = Pagina.objects.filter(publicar=True)
+    context = {
+        'pagina_publicada':pagina_publicada,
+        
+        
+    }
+    return render (request, 'error_404.html', context)
+
+
+def error_500(request):
+    pagina_publicada = Pagina.objects.filter(publicar=True)
+    context = {
+        'pagina_publicada':pagina_publicada,
+        
+        
+    }
+    return render (request, 'error_404.html', context)

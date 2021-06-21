@@ -1,51 +1,307 @@
-{% extends 'base/base.html' %} {% block content %}
+{% extends 'base/base.html' %} {% load static %}{% block content %}
+
+<style>
+        section {
+        position: center;
+    }
+    
+    .img-background {
+        width: 100%;
+        height: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+    .subtitulo-hero {
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        padding-top: 10px;
+        margin: 0;
+    }
+    
+    .titulo-hero {
+        color: rgb(255, 255, 255);
+        font-size: 4rem;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        margin: 0;
+    }
+    
+    .centro-centro {
+        justify-content: center;
+        --bs-gutter-x: 0;
+        --bs-gutter-y: 0;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: calc(var(--bs-gutter-y) * -1);
+        margin-right: calc(var(--bs-gutter-x) / -2);
+        margin-left: calc(var(--bs-gutter-x) / -2);
+        text-align: center;
+    }
+    
+    .tarjeta-hero {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    
+    .tarjeta-centro {
+        text-align: center!important;
+        background-color: rgba(0, 0, 0, 0.336);
+        border-radius: 30px;
+        max-width: 700px;
+        width: 100%;
+    }
+    
+    .circulo {
+        display: inline-block;
+        width: 6rem;
+        height: 6rem;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 5;
+        background-color: #eaedfe;
+    }
+    
+    .icon-home {
+        height: 3rem !important;
+        width: 3rem !important;
+        color: #0d6efd!important;
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+    }
+    
+    .icon-imagen {
+        vertical-align: middle;
+        stroke: currentColor;
+    }
+    
+    .imagen-carrusel {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+    
+    .icon-cards {
+        height: 1rem !important;
+        width: 1rem !important;
+    }
+    
+    .ribbon {
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        position: absolute;
+    }
+    /* Etiqueta foto */
+    
+    .ribbon::before,
+    .ribbon::after {
+        position: absolute;
+        z-index: -1;
+        content: '';
+        display: block;
+    }
+    
+    .ribbon span {
+        position: absolute;
+        display: block;
+        width: 225px;
+        padding: 4px 0;
+        background-color: #4E66F8;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+        color: #fff;
+        font: 700 14px/1 'Lato', sans-serif;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+        text-transform: uppercase;
+        text-align: center;
+    }
+    /* top left*/
+    
+    .ribbon-top-left {
+        top: -3px;
+        left: -3px;
+    }
+    
+    .ribbon-top-left::before,
+    .ribbon-top-left::after {
+        border-top-color: transparent;
+        border-left-color: transparent;
+    }
+    
+    .ribbon-top-left::before {
+        top: 0;
+        right: 0;
+    }
+    
+    .ribbon-top-left::after {
+        bottom: 0;
+        left: 0;
+    }
+    
+    .ribbon-top-left span {
+        right: -62.5px;
+        top: 30px;
+        transform: rotate(-45deg);
+</style>
+<section class="hero-home">
+    <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="img-background carousel-item active" style="background-image:url(https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1519974719765-e6559eac2575.jpg)">
+
+                <div class="tarjeta-hero ">
+                    <div class=" centro-centro ">
+                        <div class="tarjeta-centro">
+                            <p class="subtitulo-hero ">Te ayudamos a encontrar </p>
+                            <h1 class="titulo-hero "> La casa de tus suenios </h1>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="img-background carousel-item " style="background-image:url(https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1501621965065-c6e1cf6b53e2.jpg) ">
+            </div>
+            <div class="img-background carousel-item " style="background-image:url(https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1490578474895-699cd4e2cf59.jpg) ">
+            </div>
+            <div class="img-background carousel-item " style="background-image:url(https://d19m59y37dris4.cloudfront.net/directory/1-6-1/img/photo/photo-1534850336045-c6c6d287f89e.jpg) ">
+            </div> -->
+        </div>
+    </div>
 
 
-<section>
+
+</section>
+
+
+
+<!-- Slide de VENTAJAS -->
+<section class="py-5 bg-gray-100">
     <div class="container">
-        <hr>
-        <h1>Aqui va el HERO</h1>
-        
-        
-        
-        <hr>
+        <div class="text-center pb-lg-4">
+            <p class="subtitle text-secondary"></p>
+            <h2 class="mb-5">Encontrar tu casa nunca fue tan facil</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+                <div class="px-0 px-lg-3">
+                    <div class="circulo bg-primary-light mb-3">
+                        <svg class="icon-home  ">
+                                <use xlink:href="#destination-map-1"> </use>
+                            </svg>
+                    </div>
+                    <h3 class="h5">La mejor ubicacion</h3>
+                    <p class="text-muted">Tenemos muchas ubicaciones para que vivas cerca de tu trabajo, escuela o familia.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+                <div class="px-0 px-lg-3">
+                    <div class="circulo bg-primary-light mb-3">
+                        <svg class="icon-home  ">
+                                <use xlink:href="#pay-by-card-1"> </use>
+                            </svg>
+                    </div>
+                    <h3 class="h5">Facilidad de pago</h3>
+                    <p class="text-muted">Te ayudamos adquirir una propiedad de contado, credito bancario o INFONAVIT.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+                <div class="px-0 px-lg-3">
+                    <div class="circulo bg-primary-light mb-3">
+                        <svg class="icon-home  ">
+                                <use xlink:href="#heart-1"> </use>
+                            </svg>
+                    </div>
+                    <h3 class="h5">Para toda la familia</h3>
+                    <p class="text-muted">Tenemos la propiedad perfecta para una familia chica, una familia grande o una familia en el futuro.
+                    </p>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 
-<!-- Slide de casas -->
-<section>
-    <div class="container">
-        <hr>
-        <h1>Ventajas</h1>
-        <hr>
-    </div>
-</section>
-
 
 <!-- Slide de casas -->
 <section>
 
-    <div class="container">
-        <hr>
-        <h1>Slide de casas</h1>
-        <ul>
-        {% for i in casas %}
-        <li><a href="{% url 'detalles_inmuebles' i.inmueble  i.id %}">{{i.inmueble}} - {{i.tipo_contrato}} - ID: {{i.id}}</a></li>
-            
-        {% endfor %}
-        </ul>
-        <hr>
-    </div>
+    <div class="container ">
+
+
+        <h1>Nuestro Catalogo de Casas</h1>
+        <div class="owl-carousel owl-theme">
+            {% for i in casas %}
+            <div class="ms-2 me-2">
+                <div class="card" style="border-radius: 30px;">
+
+                    <div class="ribbon ribbon-top-left">
+                        {% if i.termino %}
+                        <span><small> OCUPADA </small></span> {% else %}
+                        <span>{{i.tipo_contrato}}</span> {% endif %}
+                    </div>
+
+                    {% if i.imagen %}
+                    <a href="{% url 'detalles_inmuebles' i.inmueble i.id %} " style="color: black;">
+                        <img style="border-radius: 30px;" class="imagen-carrusel card-img-top" src="{{i.imagen.url}}" alt="{{i.alt}}"> {% endif %}
+                        <div class="centro-centro">
+                            <h5 class="card-title">{{i.inmueble}} en {{i.colonia|truncatechars:12 }} </h5>
+
+                            <ul>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#area-terreno"> </use>
+                    </svg> Ciudad : <strong>{{i.ciudad}}</strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#house"> </use>
+                    </svg> Construccion : <strong>{{i.m2_construccion}} m<sup>2</sup></strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#terreno"> </use>
+                    </svg> Terreno : <strong>{{i.m2_terreno}} m<sup>2</sup></strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#cama"> </use>
+                    </svg> Recamaras : <strong>{{i.num_habitaciones}} </strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#regadera-2"> </use>
+                    </svg> Banios : <strong>{{i.num_banos}} </strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#carro"> </use>
+                    </svg> Estacionamiento : <strong>{{i.estacionamiento}}</strong></li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+        <div>
+            <a style="color: black;" href=" {% url 'listado' 'Casa' %} ">Todos nuestras casas <svg class="icon-cards">
+                        <use xlink:href="#flechas"> </use>
+                    </svg></a></div>
 </section>
 
 <!-- Slide de Departamentos -->
 <section>
-    <div class="container">
+    <div class="container ">
         <hr>
         <h1>Slide de departamentos</h1>
         {% for i in departamentos %}
         <ul>
-        <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %}">{{i.inmueble}} - {{i.tipo_contrato}} - ID: {{i.id}}</a></li>
+            <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %} ">{{i.inmueble}} - {{i.tipo_contrato}} - ID: {{i.id}}</a></li>
         </ul>
         {% endfor %}
         <hr>
@@ -54,13 +310,13 @@
 
 <!-- Slide de Comercios -->
 <section>
-    <div class="container">
+    <div class="container ">
         <hr>
         <h1>Slide de comercios</h1>
         <ul>
-        {% for i in comercios %}
-        <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %}">{{i.inmueble}} - {{i.tipo_contrato}} - ID: {{i.id}}</a></li>
-        {% endfor %}
+            {% for i in comercios %}
+            <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %} ">{{i.inmueble}} - {{i.tipo_contrato}} - ID: {{i.id}}</a></li>
+            {% endfor %}
         </ul>
         <hr>
     </div>
@@ -68,18 +324,19 @@
 
 <!-- Slide de Terrenos -->
 <section>
-    <div class="container">
+    <div class="container ">
         <hr>
         <h1>Slide de Terrenos</h1>
         <ul>
-        {% for i in terrenos %}
-        <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %}">{{i.inmueble}} -  {{i.id}}</a></li>
-        {% endfor %}
+            {% for i in terrenos %}
+            <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %} ">{{i.inmueble}} -  {{i.id}}</a></li>
+            {% endfor %}
         </ul>
         <hr>
-        
+
     </div>
 </section>
+
 
 
 
