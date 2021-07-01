@@ -1,6 +1,6 @@
 $(".owl-carousel").owlCarousel({
-    autoplay: true,
-    autoplayhoverpause: true,
+    autoplay: false,
+    autoplayhoverpause: false,
     responsive: {
         0: {
             items: 1,

@@ -25,9 +25,14 @@
     btn-sml {
         height: 2.5vh;
     }
+    .botontabla{
+        margin-top:5px;
+        margin-bottom:5px;
+        width:80px;
+    }
 </style>
-<br><br><br>
-<div class="container" style="max-width: 900px">
+<br>
+<div class="container" style="max-width: 100%">
     <h1> Lista de Citas</h1> 
     <p>Este es el listado de todas las citas, incluye las que estan vendidas.</p>
     <div>
@@ -35,12 +40,10 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Telefono</th>
-
-                <th>Email</th>
+                
                 <th>whattsapp?</th>
-                <th>Fecha Envio</th>
-                <th>Asesor</th>
+                
+                
                 <th>Checked</th>
                 <th>Eliminar</th>
                 
@@ -49,23 +52,19 @@
             {% for i in citas %}
             <tr {% if i.checked %} style="background-color:gray;" {%endif%}>
                 <td>{{i.id}}</td>
-                <td>{{i.nombre_completo}}</td>
-                <td>{{i.telefono}}</td>
-                <td>{{i.email}}</td>
-
-                <td>{{i.whattsapp}}</td>
-                <td>{{i.creado}}</td>
+                <td>{{i.nombre_completo}}<br>{{i.telefono}}<br>{{i.email}}</td>
+                <td>{%if i.whattsapp%}Enviar Whats{%else%}No Whats{%endif%} <br> {{i.creado|date:"M d, Y" }}</td>
+                
                 <td>{{i.asesor}}</td>
                 <td >
                     <form action="{% url 'checked_citas' i.id%}" method="POST">{% csrf_token %}
-                        <input value="Cita Check" type=submit>
+                        <input class="botontabla" value="Cita Check" type=submit>
                     </form>    
-                </td>
-                <td >
                     <form action="{% url 'eliminar_citas' i.id%}" method="POST">{% csrf_token %}
-                        <input value="Eliminar" type=submit>
-                    </form>    
+                        <input class="botontabla" value="Eliminar" type=submit>
+                    </form>
                 </td>
+
 
 
             </tr>

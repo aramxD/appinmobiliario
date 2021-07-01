@@ -1,7 +1,8 @@
 {% extends 'base/base.html' %} {% load static %}{% block content %}
 
 <style>
-        section {
+
+    section {
         position: center;
     }
     
@@ -84,6 +85,8 @@
         width: 100%;
         height: 250px;
         object-fit: cover;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
     }
     
     .icon-cards {
@@ -147,7 +150,10 @@
         right: -62.5px;
         top: 30px;
         transform: rotate(-45deg);
+    }
 </style>
+
+<!-- HERO -->
 <section class="hero-home">
     <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner">
@@ -181,6 +187,7 @@
 <!-- Slide de VENTAJAS -->
 <section class="py-5 bg-gray-100">
     <div class="container">
+
         <div class="text-center pb-lg-4">
             <p class="subtitle text-secondary"></p>
             <h2 class="mb-5">Encontrar tu casa nunca fue tan facil</h2>
@@ -236,7 +243,7 @@
     <div class="container ">
 
 
-        <h1>Nuestro Catalogo de Casas</h1>
+        <h1>Catalogo de Casas</h1>
         <div class="owl-carousel owl-theme">
             {% for i in casas %}
             <div class="ms-2 me-2">
@@ -250,8 +257,8 @@
 
                     {% if i.imagen %}
                     <a href="{% url 'detalles_inmuebles' i.inmueble i.id %} " style="color: black;">
-                        <img style="border-radius: 30px;" class="imagen-carrusel card-img-top" src="{{i.imagen.url}}" alt="{{i.alt}}"> {% endif %}
-                        <div class="centro-centro">
+                        <img class="imagen-carrusel card-img-top" src="{{i.imagen.url}}" alt="{{i.alt}}"> {% endif %}
+                        <div class="text-center">
                             <h5 class="card-title">{{i.inmueble}} en {{i.colonia|truncatechars:12 }} </h5>
 
                             <ul>
@@ -288,54 +295,219 @@
 
 
         </div>
-        <div>
-            <a style="color: black;" href=" {% url 'listado' 'Casa' %} ">Todos nuestras casas <svg class="icon-cards">
+        <br>
+        <div class="d-flex flex-row-reverse">
+            <a style="color: black;" href=" {% url 'listado' 'Casa' %} ">Todas nuestras casas <svg class="icon-cards">
                         <use xlink:href="#flechas"> </use>
-                    </svg></a></div>
+                    </svg>
+                </a>
+        </div>
+    </div>
 </section>
+<hr>
 
 <!-- Slide de Departamentos -->
 <section>
     <div class="container ">
-        <hr>
-        <h1>Slide de departamentos</h1>
-        {% for i in departamentos %}
-        <ul>
-            <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %} ">{{i.inmueble}} - {{i.tipo_contrato}} - ID: {{i.id}}</a></li>
-        </ul>
-        {% endfor %}
-        <hr>
+
+
+        <h1>Catalogo de Departamentos</h1>
+        <div class="owl-carousel owl-theme">
+            {% for i in departamentos %}
+            <div class="ms-2 me-2">
+                <div class="card" style="border-radius: 30px;">
+
+                    <div class="ribbon ribbon-top-left">
+                        {% if i.termino %}
+                        <span><small> OCUPADA </small></span> {% else %}
+                        <span>{{i.tipo_contrato}}</span> {% endif %}
+                    </div>
+
+                    {% if i.imagen %}
+                    <a href="{% url 'detalles_inmuebles' i.inmueble i.id %} " style="color: black;">
+                        <img class="imagen-carrusel card-img-top" src="{{i.imagen.url}}" alt="{{i.alt}}"> {% endif %}
+                        <div class="text-center">
+                            <h5 class="card-title">{{i.inmueble}} en {{i.colonia|truncatechars:12 }} </h5>
+
+                            <ul>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#area-terreno"> </use>
+                    </svg> Ciudad : <strong>{{i.ciudad}}</strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#house"> </use>
+                    </svg> Construccion : <strong>{{i.m2_construccion}} m<sup>2</sup></strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#terreno"> </use>
+                    </svg> Terreno : <strong>{{i.m2_terreno}} m<sup>2</sup></strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#cama"> </use>
+                    </svg> Recamaras : <strong>{{i.num_habitaciones}} </strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#regadera-2"> </use>
+                    </svg> Banios : <strong>{{i.num_banos}} </strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#carro"> </use>
+                    </svg> Estacionamiento : <strong>{{i.estacionamiento}}</strong></li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+        <br>
+        <div class="d-flex flex-row-reverse">
+            <a style="color: black;" href=" {% url 'listado' 'Departamento' %} ">Todos nuestros departamentos <svg class="icon-cards">
+                        <use xlink:href="#flechas"> </use>
+                    </svg>
+                </a>
+        </div>
     </div>
 </section>
-
+<hr>
 <!-- Slide de Comercios -->
 <section>
     <div class="container ">
-        <hr>
-        <h1>Slide de comercios</h1>
-        <ul>
+
+
+        <h1>Catalogo de Comercios</h1>
+        <div class="owl-carousel owl-theme">
             {% for i in comercios %}
-            <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %} ">{{i.inmueble}} - {{i.tipo_contrato}} - ID: {{i.id}}</a></li>
+            <div class="ms-2 me-2">
+                <div class="card" style="border-radius: 30px;">
+
+                    <div class="ribbon ribbon-top-left">
+                        {% if i.termino %}
+                        <span><small> OCUPADA </small></span> {% else %}
+                        <span>{{i.tipo_contrato}}</span> {% endif %}
+                    </div>
+
+                    {% if i.imagen %}
+                    <a href="{% url 'detalles_inmuebles' i.inmueble i.id %}" style="color: black;">
+                        <img class="imagen-carrusel card-img-top" src="{{i.imagen.url}}" alt="{{i.alt}}"> {% endif %}
+                        <div class="text-center">
+                            <h5 class="card-title">{{i.inmueble}} en {{i.colonia|truncatechars:12 }} </h5>
+
+                            <ul>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#area-terreno"> </use>
+                    </svg> Ciudad : <strong>{{i.ciudad}}</strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#house"> </use>
+                    </svg> Construccion : <strong>{{i.m2_construccion}} m<sup>2</sup></strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#terreno"> </use>
+                    </svg> Terreno : <strong>{{i.m2_terreno}} m<sup>2</sup></strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#cama"> </use>
+                    </svg> Recamaras : <strong>{{i.num_habitaciones}} </strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#regadera-2"> </use>
+                    </svg> Banios : <strong>{{i.num_banos}} </strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#carro"> </use>
+                    </svg> Estacionamiento : <strong>{{i.estacionamiento}}</strong></li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
             {% endfor %}
-        </ul>
-        <hr>
+
+
+        </div>
+        <br>
+        <div class="d-flex flex-row-reverse">
+            <a style="color: black;" href=" {% url 'listado' 'Comercio' %} ">Todos nuestros departamentos <svg class="icon-cards">
+                        <use xlink:href="#flechas"> </use>
+                    </svg>
+                </a>
+        </div>
     </div>
 </section>
 
+<hr>
 <!-- Slide de Terrenos -->
 <section>
-    <div class="container ">
-        <hr>
-        <h1>Slide de Terrenos</h1>
-        <ul>
-            {% for i in terrenos %}
-            <li><a href="{% url 'detalles_inmuebles' i.inmueble i.id %} ">{{i.inmueble}} -  {{i.id}}</a></li>
-            {% endfor %}
-        </ul>
-        <hr>
+    <div class="container " >
 
+
+        <h1>Catalogo de Terrenos </h1>
+        <div class="owl-carousel owl-theme">
+            {% for i in terrenos %}
+            <div class="ms-2 me-2">
+                <div class="card" style="border-radius: 30px;">
+
+                    <div class="ribbon ribbon-top-left">
+                        {% if i.termino %}
+                        <span><small> OCUPADA </small></span> {% else %}
+                        <span>{{i.tipo_contrato}}</span> {% endif %}
+                    </div>
+
+                    {% if i.imagen %}
+                    <a href="{% url 'detalles_inmuebles' i.inmueble i.id %}" style="color: black;">
+                        <img class="imagen-carrusel card-img-top" src="{{i.imagen.url}}" alt="{{i.alt}}"> {% endif %}
+                        <div class="text-center">
+                            <h5 class="card-title">{{i.inmueble}} en {{i.colonia|truncatechars:12 }} </h5>
+
+                            <ul>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#area-terreno"> </use>
+                    </svg> Ciudad : <strong>{{i.ciudad}}</strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#house"> </use>
+                    </svg> Construccion : <strong>{{i.m2_construccion}} m<sup>2</sup></strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#terreno"> </use>
+                    </svg> Terreno : <strong>{{i.m2_terreno}} m<sup>2</sup></strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#cama"> </use>
+                    </svg> Recamaras : <strong>{{i.num_habitaciones}} </strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#regadera-2"> </use>
+                    </svg> Banios : <strong>{{i.num_banos}} </strong></li>
+                                <li>
+                                    <svg class="icon-cards">
+                        <use xlink:href="#carro"> </use>
+                    </svg> Estacionamiento : <strong>{{i.estacionamiento}}</strong></li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+        <br>
+        <div class="d-flex flex-row-reverse">
+            <a style="color: black;" href=" {% url 'listado' 'Terreno' %} ">Todos nuestros departamentos <svg class="icon-cards">
+                        <use xlink:href="#flechas"> </use>
+                    </svg>
+                </a>
+        </div>
     </div>
 </section>
+
 
 
 

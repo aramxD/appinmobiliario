@@ -1,33 +1,273 @@
 {% extends 'base/base.html' %} {% block content %}
 
+<style>
+    section {
+        margin: auto;
+        max-width: 1200px;
+        justify-content: center!important;
+    }
+    
+    .icon-cards {
+        height: 1rem !important;
+        width: 1rem !important;
+    }
+    
+    .detalle-title {
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-weight: bold;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    
+    .imagen-carrusel {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+    /* FORMS AGENDAR */
+    /* The popup form - hidden by default */
+    
+    .form-popup {
+        display: none;
+        position: relative;
+        bottom: 0;
+        right: 0;
+        border: 3px solid #f1f1f1;
+        border-radius: 25px;
+        z-index: 9;
+    }
+    /* Add styles to the form container */
+    
+    .form-container {
+        max-width: 500px;
+        padding: 10px;
+        border-radius: 25px;
+        background-color: white;
+    }
+    /* Full-width input fields */
+    
+    .form-container input[type=text],
+    .form-container input[type=email] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        border: none;
+        background: #f1f1f1;
+    }
+    /* When the inputs get focus, do something */
+    
+    .form-container input[type=text]:focus,
+    .form-container input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
+    }
+    /* Set a style for the submit/login button */
+    
+    .form-container .btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 10px;
+        opacity: 0.8;
+    }
+    /* Add a red background color to the cancel button */
+    
+    .form-container .cancel {
+        background-color: red;
+    }
+    /* Add some hover effects to buttons */
+    
+    .form-container .btn:hover,
+    .open-button:hover {
+        opacity: 1;
+    }
+</style>
 
-<div class="container">
-    <section>
-        <h1>Detalles de {{detalles.inmueble}}</h1>
-        {{nota}} <br> {{ detalles.id}}<br> {{ detalles.precio|floatformat:2}}<br> {{ detalles.colonia}}<br> {% if detalles.imagen %}
-        <img width="200px" height='auto' src="{{detalles.imagen.url}}"> {% endif %}
-    </section>
-    <section>
-        {% for i in fotos_detalles %} {% if fotos_detalles %}
-        <img width="200px" height='auto' src="{{i.imagen.url}}"> {% endif %} {% endfor %}
-<a href="{{detalles.ubicacion}}">Ubicacion</a>
-    </section>
-
-    <section>
-        <h2>Asesor</h2>
-        {{detalles.vendedor.nombre}} {{detalles.vendedor.apeido}}
-
-    </section>
 
 
+<!----Titulo ----><br>
+<section class="detalles-inmuebles ">
+    <div class="row mb-5">
+        <div class="col-9">
+            <p class="subtitle  text-primary">Aqui puede estar</p>
+            <h2 class="detalle-title">Tu siguiente propiedad</h2>
+            <h4>{{note}}</h4>
+        </div>
+        <div class="col-3 d-lg-flex align-items-center justify-content-end">
+            <a class="text-muted" href="{% url 'home' %}">
+                <small><strong>  Inicio </strong> 
+                    <svg class="icon-cards">
+                        <use xlink:href="#flechas"> </use>
+                    </svg>
+                </small>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!----Fotos ---->
+<section class=" text-center container">
+
+    <div class="owl-carousel owl-theme" style="margin: auto; padding: 0;">
+        {% if fotos_detalles %} {% for i in fotos_detalles %}
+        <div class="ms-2 me-2">
+            <div class="card" style="border-radius: 30px;">
+                <img class="imagen-carrusel card-img-top" src="{{i.imagen.url}}" alt="{{i.alt}}">
+            </div>
+        </div>
+        {% endfor %} {% else %}
+        <img class="imagen-carrusel card-img-top" src="{{detalles.imagen.url}}" alt="{{detalles.alt}}"> {% endif%}
+    </div>
+    <br>
+
+
+</section>
 
 
 
-    <section>
-        <h2>Formulario de Cita</h2>
-        <form method="POST">
-            {% csrf_token %} {{nueva_cita}}
-            <button type="submit"><span class="glyphicon glyphicon-user"></span> Enviar </button>
-        </form>
-    </section>
-    {% endblock content %}
+<!----Informacion Casa---->
+<section class=" text-center container">
+    <div class="row py-lg-5 justify-content-center">
+        <div class="col-lg-6  col-md-8 mx-auto">
+            <div style="padding-bottom: .5em;">
+                <h6 class="card-title display-6">
+                    Casa en {{ detalles.colonia }} - {{detalles.ciudad}}
+                </h6>
+                <div style="border-radius: 20px; border: solid 3px; color: rgb(255, 0, 0); ">
+                    <p class="card-title display-6 "> <strong>{{detalles.tipo_contrato}}  </strong></p>
+                </div>
+            </div><br>
+
+
+            <h5 class="card-title" style="padding-bottom: .5em;">
+                <span class="h4 text-primary fs-1">${{detalles.precio|floatformat:2}}</span>
+                <strong>MXN </strong>
+                <br>
+            </h5>
+            <table class="flex-grow-1 mb-0 " style="margin-left: auto; margin-right: auto;">
+                <tr>
+                    <td><small>Metros de Construccion</small></td>
+                    <td><strong>{{detalles.m2_construccion}} m²</strong></td>
+                </tr>
+                <tr>
+                    <td> <small>Metros de Terreno</small></td>
+                    <td><strong>{{detalles.m2_terreno}} m²</strong></td>
+                </tr>
+                <tr>
+                    <td> <small>Recamaras</small></td>
+                    <td><strong>{{detalles.num_habitaciones}}</strong></td>
+                </tr>
+                <tr>
+                    <td> <small>Banios</small></td>
+                    <td><strong>{{detalles.num_banos|floatformat:1}}</strong></td>
+                </tr>
+                <tr>
+                    <td> <small>Estacionamiento</small></td>
+                    <td><strong>{{detalles.estacionamiento}}</strong></td>
+                </tr>
+            </table>
+            <hr> {% if detalles.notas %}
+            <h4>Descripcion:</h4>
+            <p>
+                {{detalles.notas|safe}}
+            </p>
+            <hr> {% endif %}
+        </div>
+    </div>
+</section>
+
+
+<!----Informacion Direccion---->
+<section class=" text-center container">
+    <h5>Direccion</h5>
+    <p>{{detalles.calle|capfirst}} {{detalles.numero_ext}} {{detalles.numero_int}}, {{detalles.colonia}} <br> {{detalles.ciudad|capfirst}}, {{detalles.estado|capfirst}} {{detalles.pais|capfirst}} </p>
+
+    <a href="{{detalles.ubicacion}}">Ubicacion</a>
+
+</section>
+
+
+<!----Asesor ---->
+<section class=" text-center container" style="padding-top: 30px;">
+    <div class="card " style="border-radius:20px; max-width: 500px;">
+        <div class="row " style="max-width: 100%; min-height: 140px; padding:10px">
+            <div class="col-md-6" style="">
+                {% if detalles.vendedor.foto%}
+                <div>
+                    <img src="{{detalles.vendedor.foto.url}}" alt="Avatar" class="card-img" style="
+                width: 140px; height: 140px; margin-left: auto; display: block;
+                margin-right: auto;   overflow: hidden;    border-radius: 50%;">
+                </div>
+                {% endif %} </div>
+            <div class="col-md-6">
+                <div class="card-body" style="padding-top: 10px; padding-bottom: 0px;">
+                    <h5 class="card-title">{{detalles.vendedor.nombre}} {{detalles.vendedor.apeido}}</h5>
+                    <p class="card-text"><small> Asesor Inmobiliario </small></p>
+                    <a class="btn btn-warning my-2 open-button" onclick="openForm()"> Agendar Cita </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="text-center container" style="max-width: 800px;">
+
+
+    <a class="btn btn-primary my-2" href="{% url 'listado' detalles.inmueble %}"> Regresar </a>
+</section>
+
+
+
+
+<div class="form-popup" id="myForm">
+    <form action="" class="form-container" method="POST">
+        {% csrf_token %}
+        <h3>Agenda una Cita</h3>
+        <table>
+            {{nueva_cita.nombre_completo.label_tag}} {{nueva_cita.nombre_completo}} {{nueva_cita.telefono.label_tag}} {{nueva_cita.telefono}} {{nueva_cita.email.label_tag}} {{nueva_cita.email}} {{nueva_cita.whattsapp.label_tag}} {{nueva_cita.whattsapp}}
+
+
+        </table>
+        <button type="submit" class="btn">Agendar</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Cerrar</button>
+
+    </form>
+</div>
+
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+</script>
+</div>
+<!-- 
+</div>
+
+
+
+
+
+
+
+<section>
+    <h2>Formulario de Cita</h2>
+    <form method="POST">
+        {% csrf_token %} {{nueva_cita}}
+        <button type="submit"><span class="glyphicon glyphicon-user"></span> Enviar </button>
+    </form>
+</section> -->
+{% endblock content %}

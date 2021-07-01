@@ -1,6 +1,15 @@
 {% extends 'base/base.html' %} {% block content%}
+
+<style>
+    .js-altura{
+        min-height:500px;
+        width:100%;
+    }
+</style>
+
 <br>
-<div  style="width: 600px;">
+<section class="jscontainer js-altura">
+<div  style="">
     <div >
         <h3> {{pagina.titulo}} </h3>
     </div>
@@ -8,7 +17,7 @@
         {{ pagina.contenido|safe }}
     </div>
 </div>
-
+</section>
 
 
 

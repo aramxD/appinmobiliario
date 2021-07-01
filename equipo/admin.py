@@ -9,5 +9,10 @@ class AsesorAdmin(admin.ModelAdmin):
 class CitasAdmin(admin.ModelAdmin):
     list_display = ('id', 'nombre_completo', 'telefono', 'asesor','whattsapp', 'checked', 'creado') #visualizar columnas
 
+class EmpresaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre') #visualizar columnas
+
+
 admin.site.register(Asesor, AsesorAdmin)
 admin.site.register(Citas, CitasAdmin)
+admin.site.register(Empresa, EmpresaAdmin)

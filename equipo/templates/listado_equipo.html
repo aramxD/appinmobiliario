@@ -10,37 +10,33 @@
         
 <table>
             <tr>
-                <th>ID</th>
-                <th>UserName</th>
-                <th>Nombre</th>
-                <th>Telefono</th>
-                <th>Email</th>
-                <th>Admin</th>
-                <th>Fecha de ingreso</th>
-                <th>Editar</th>
+                <th>ID / Username</th>
+                
+                <th>Telefono/Email</th>
+                
+                
+                <th>Editar / Password</th>
                 <th>Eliminar</th>
-                <th>Password</th>
+                
             </tr>
             {% for i in asesores %}
-            <tr>
-                <td>{{i.user.id}}</td>
-                <td>{{i.apodo}}</td>
-                <td>{{i.nombre}} {{i.apeido}}</td>
-                <td>{{i.telefono}}</td>
-                <td>{{i.email}}</td>
-                <td>{{i.is_admin}}</td>
-                <td>{{i.fecha_ingreso}}</td>
+            <tr {%if i.is_admin%} style="background-color:green;"{%endif%}>
+                <td>{{i.user.id}}<br>{{i.apodo}}</td>
+                
+                <td>{{i.telefono}}<br>{{i.email}}</td>
+                
+                
+                
                 <td >
                     <a href="{% url 'editar_asesor' i.user.id%}">Editar</a>
+                    <a href="{% url 'cambio_password' i.user.id%}">Cambiar</a>
                 </td>
                 <td >
                     <form action="{% url 'eliminar_asesor' i.user.id%}" method="POST">{% csrf_token %}
                         <input value="Eliminar" type=submit>
                     </form>    
                 </td>
-                <td >
-                    <a href="{% url 'cambio_password' i.user.id%}">Cambiar</a>
-                </td>
+                
             </tr>
             {% endfor %}
 

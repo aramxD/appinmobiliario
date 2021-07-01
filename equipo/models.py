@@ -4,6 +4,17 @@ from django.utils import timezone
 
 
 # Create your models here.
+class Empresa(models.Model):
+    nombre = models.CharField(max_length=50, blank=True)
+    facebook = models.CharField(max_length=50, blank=True)
+    instagram = models.CharField(max_length=50, blank=True)
+    youtube = models.CharField(max_length=50, blank=True)
+    whatsapp = models.CharField(max_length=50, blank=True)
+    twitter = models.CharField(max_length=50, blank=True)
+    telefono = models.CharField(max_length=12, blank=True)
+    email = models.EmailField(  blank=True)
+    logo = models.ImageField(verbose_name="logo", upload_to="images/empresa", blank=True)
+
 class Asesor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     nombre = models.CharField(max_length=20)

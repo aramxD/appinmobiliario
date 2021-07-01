@@ -49,11 +49,11 @@ header {
 nav {
     display: flex;
     align-items: center;
-    max-width: 900px;
+    /* max-width: 900px; */
     width: 100%;
     height: 4.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, .2);
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgb(175, 175, 175, .7);
 }
 
 .logo {
@@ -101,7 +101,9 @@ nav {
 }
 
 .nav-list a:hover {
-    color: #0D6EFD
+    color: #9aaa05;
+    background-color: #0000002d;
+    padding: .5rem;
 }
 
 .btn {
@@ -203,14 +205,17 @@ li.move-right {
     .menu-icons {
         display: block;
     }
-    img.icon-menu {
-        height: 40px;
+    .i-menu {
+        height: 2rem !important;
+        width: 2rem !important;
     }
-    i.icon.material-icons.icon-close {
-        font-size: 40px;
+    /* svg.icon-menu {
+        height: 20px;
+    } */
+    .icon-close {
         display: none;
     }
-    nav.active i.icon.material-icons.icon-close {
+    nav.active .icon-close {
         display: block;
     }
     nav.active .icon-menu {

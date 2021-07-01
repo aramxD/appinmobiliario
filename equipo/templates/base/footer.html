@@ -1,7 +1,40 @@
-<section>
-    <div class="container">
-        <hr>
-        <h1>Footer</h1>
-        <hr>
+<style>
+.footer {
+    height:auto;
+    width: 100%;
+    background-color: rgb(175, 175, 175, .7);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    
+}
+.icon-footer {
+        height: 1rem !important;
+        width: 1rem !important;
+    }
+</style>
+
+<section class="container footer">
+<div class="row" style="padding:20px">
+    <div class="col-6">
+        <h5><a href="{% url 'pagina' 'contacto' %}">Contacto</a></h5>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
     </div>
+    <div class="col-6">
+        
+        <h5>Social</h5>
+        <ul>
+            <li><a href="#"> <svg class="icon-footer"><use xlink:href="#facebook"></use></svg> Facebook</li></a>
+            <li><a href="#"> <svg class="icon-footer"><use xlink:href="#instagram1"></use></svg> Instagram</li></a>
+            <li><a href="#"> <svg class="icon-footer"><use xlink:href="#youtube"></use></svg> Youtube</li></a>
+            <li><a href="#"> <svg class="icon-footer"><use xlink:href="#whatsapp"></use></svg> Whatsapp</li></a>
+            <li><a href="#"> <svg class="icon-footer"><use xlink:href="#twitter"></use></svg> Twitter</li></a>
+        </ul>
+        
+    </div>
+</div>
+<div class="row">
+    <p>Backend - Frontend JS © Todos los derechos reservados</p>
+</div>
 </section>

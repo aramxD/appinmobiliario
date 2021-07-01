@@ -4,6 +4,14 @@ from .forms import *
 from paginas.models import *
 from equipo.models import *
 from django.contrib.auth.decorators import login_required
+#from .decorator import info_base
+
+def info_base(request):
+    pagina_publicada = Pagina.objects.filter(publicar=True)
+    info_base = {
+        'pagina_publicada':pagina_publicada,
+        }
+    return info_base
 
 
 def get_asesor(request):
@@ -14,46 +22,41 @@ def get_asesor(request):
 
 
 def home(request):
-    pagina_publicada = Pagina.objects.filter(publicar=True)
     inmueble = Inmueble.objects.filter(featured=True)
     casas = inmueble.filter(inmueble="Casa").order_by('id')
     departamentos = inmueble.filter(inmueble="Departamento").order_by('id')
     comercios = inmueble.filter(inmueble="Comercio").order_by('id')
     terrenos = inmueble.filter(inmueble="Terreno").order_by('id')
 
+    
     context = {
-        'pagina_publicada':pagina_publicada,
         'casas':casas,
         'departamentos':departamentos,
         'comercios':comercios,
         'terrenos':terrenos,
     }
+    context.update(info_base(request))
     return render(request, 'home.html', context )
 
 
 def listado(request, tipo_inmueble):
-    pagina_publicada = Pagina.objects.filter(publicar=True)
     if request.method == 'GET':
-        
         inmuebles = Inmueble.objects.filter(inmueble=tipo_inmueble).order_by('id')
         context = {
-        'pagina_publicada':pagina_publicada,
         'inmuebles':inmuebles,
-        
         }
+        context.update(info_base(request))
         return render (request, 'listado_inmuebles.html', context)
     else:
         return redirect("home")
 
 
 def detalles_inmuebles(request, tipo_inmueble, inmueble_id):
-    pagina_publicada = Pagina.objects.filter(publicar=True)
     detalles = get_object_or_404(Inmueble,  pk=inmueble_id)
     
     if detalles.inmueble == tipo_inmueble:
         queryfotos = InmuebleImagen.objects.all()
         fotos_detalles = queryfotos.filter(inmueble=detalles).order_by('id')
-
 
         if request.method == 'POST':
             agendar_cita = CitasForms(request.POST)
@@ -64,34 +67,34 @@ def detalles_inmuebles(request, tipo_inmueble, inmueble_id):
                 nota = 'Nos comunicaremos pronto contigo'
                 nueva_cita = CitasForms()
                 context = {
-                    'pagina_publicada':pagina_publicada,
                     'nota':nota,
                     'nueva_cita':nueva_cita,
                     'detalles' : detalles,
                     'fotos_detalles' : fotos_detalles,
                     }
+                context.update(info_base(request))
                 return render (request, 'detalles_inmuebles.html', context)
             else:
                 nota = 'Favor de revizar que los datos sean correctos'
             nueva_cita = CitasForms()
             context = {
-                    'pagina_publicada':pagina_publicada,
-                    'nota':nota,
-                    'nueva_cita':nueva_cita,
-                    'detalles' : detalles,
-                    'fotos_detalles' : fotos_detalles,
-                    }
+                'nota':nota,
+                'nueva_cita':nueva_cita,
+                'detalles' : detalles,
+                'fotos_detalles' : fotos_detalles,
+                }
+            context.update(info_base(request))
             return render (request, 'detalles_inmuebles.html', context)
         else:
             nota = ''
             nueva_cita = CitasForms()
             context = {
-                    'pagina_publicada':pagina_publicada,
-                    'nota':nota,
-                    'nueva_cita':nueva_cita,
-                    'detalles' : detalles,
-                    'fotos_detalles' : fotos_detalles,
-                    }
+                'nota':nota,
+                'nueva_cita':nueva_cita,
+                'detalles' : detalles,
+                'fotos_detalles' : fotos_detalles,
+                }
+            context.update(info_base(request))
             return render (request, 'detalles_inmuebles.html', context)
     else:
         return redirect("home")
@@ -100,7 +103,7 @@ def detalles_inmuebles(request, tipo_inmueble, inmueble_id):
 #USER ONLY
 @login_required
 def agregar_inmueble(request, tipo_inmueble):
-    pagina_publicada = Pagina.objects.filter(publicar=True)
+    
     if request.method == 'POST':
         asesor = get_asesor(request)
         alta_casa = InmuebleForms(request.POST, request.FILES)
@@ -109,15 +112,14 @@ def agregar_inmueble(request, tipo_inmueble):
             casa.vendedor = asesor
             casa.inmueble = tipo_inmueble
             casa.save()
-            
             return redirect("listado_asesor", tipo_inmueble)
-            
     else:
 
         context = {
-            'pagina_publicada':pagina_publicada,
+            
             'form':InmuebleForms(),
             }
+        context.update(info_base(request))
         return render (request, 'agregar_inmueble.html', context)
 
 

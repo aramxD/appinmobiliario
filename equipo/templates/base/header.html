@@ -1,11 +1,15 @@
 {% load static %}
 
-    <div class="js-container">
+    <div class="js-container" >
         <nav>
             <div class="menu-icons">
+                <svg class="i-menu icon material-icons icon-close">
+                        <use xlink:href="#icon-close"> </use>
+                    </svg>
+                <svg class="i-menu icon material-icons icon-menu">
+                        <use xlink:href="#icon-menu"> </use>
+                    </svg>
                 
-                <i class="icon material-icons icon-close">close</i> 
-                <img src="{%static 'icons/menu_black_24dp.svg' %}" class="icon-menu" >
             </div>
 
             <a class="navbar-brand py-1 logo" href="/">
@@ -52,12 +56,12 @@
                         </li>
                 
                 {% if user.is_authenticated %}
-                <li> 
-                    <a class="btn btn-danger" href="{% url 'listado_user'%}">Equipo :D</a>
+                <li > 
+                    <a class="" href="{% url 'listado_user'%}">Equipo</a>
                 </li>
                 <li class="move-right ">
                     <form method='POST' action="{% url 'logoutuser'%}">{% csrf_token %}
-                    <input type="submit" class="btn btn-danger" style="float: right;" value="Cerrar Sesion">
+                    <input type="submit" class="btn " style="float: right;" value="Cerrar Sesion">
                     </form>
                 </li>
                 {% endif %}
